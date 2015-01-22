@@ -12,6 +12,7 @@ var fs = require('fs-extra');
 var minstache = require('minstache');
 var exec = require('child_process').exec;
 var spawn = require('win-fork');
+var emphasize = require('../lib/utils').emphasize;
 
 program._name = 'poe create';
 
@@ -37,22 +38,22 @@ program
     console.log();
     // TODO
     // examples
-    process.exit();
   });
 
 // parse argv
 
 var args = config.load();
 
-if (args.h || args.help) program.help();
+if (args.h || args.help) program.help() && process.exit();
 
-var parsed = parse(args._);
+var parsed = parse(args._ || []);
 var types = parsed.types;
 var fields = parsed.fields;
 
 if (!types.ui && !types.api) {
-  console.log('  You must provide a `type`.');
-  program.help();
+  console.error('You must provide a `type`.');
+  program.outputHelp();
+  process.exit(1);
 }
 
 if (args.f || args.fields) {
@@ -208,7 +209,7 @@ function finish() {
   var proc = spawn('npm', ['install'], { stdio: 'inherit', customFds: [0, 1, 2] });
 
   proc.on('close', function(code){
-    if (!code) console.log('\nApp created. Run the command `make start` to start application.');
+    if (!code) console.log('\nApp created. Run the command `' + emphasize('make start') + '` to start application.');
     process.exit(code);
   });
 }
