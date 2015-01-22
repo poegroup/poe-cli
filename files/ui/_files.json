@@ -1,0 +1,20 @@
+[ 
+  ".env",
+  ".env.example",
+  ".foreman",
+  ".gitignore",
+  "LICENSE",
+  "Makefile",
+  "Procfile.dev",
+  "README.md",
+  "app.js",
+  "component.json",
+  "package.json",
+  "npm-shrinkwrap.json",
+  "views/index.jade",
+  "public/javascripts/index.js",
+  "public/javascripts/routes.js",
+  "public/partials/header.jade",
+  "public/partials/index.jade",
+  "public/stylesheets/index.styl"
+]

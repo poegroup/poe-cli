@@ -1,0 +1,11 @@
+{
+  "name": "{{project}}",
+  "repository": "{{username}}/{{project}}",
+  "description": "{{description}}",
+  "version": "0.1.0",
+  "dependencies": {
+    "poegroup/poe-ui": "^0.4.15",
+    "camshaft/component-angular": "1.2.16",
+    "camshaft/component-angular-route": "1.2.16"
+  }
+}

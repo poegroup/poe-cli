@@ -1,0 +1,234 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies
+ */
+
+var program = require('commander');
+var config = require('../lib/config');
+var ask = require('../lib/utils').ask;
+var path = require('path');
+var fs = require('fs-extra');
+var minstache = require('minstache');
+var exec = require('child_process').exec;
+var spawn = require('win-fork');
+
+program._name = 'poe create';
+
+// cli
+program
+  .version(require('../package').version)
+  // TODO
+  // allow multiple types
+  // .usage('[options] [type]')
+  .usage('[options] [type]')
+  // TODO
+  // add the short flags for these
+  .option('--verbose', 'verbose loggin to stdout')
+  .option('--fields', 'output the required fields')
+  .option('--unsafe', 'do not ask before overwriting files')
+  .option('--quick', 'do not ask for confirmation')
+  .option('--no-color', 'do not apply colors to logs')
+  .on('--help', function() {
+    console.log('  Types:');
+    console.log();
+    console.log('    ui       a client application');
+    console.log('    api      a web api');
+    console.log();
+    // TODO
+    // examples
+    process.exit();
+  });
+
+// parse argv
+
+var args = config.load();
+
+if (args.h || args.help) program.help();
+
+var parsed = parse(args._);
+var types = parsed.types;
+var fields = parsed.fields;
+
+if (!types.ui && !types.api) {
+  console.log('  You must provide a `type`.');
+  program.help();
+}
+
+if (args.f || args.fields) {
+  console.log(fields.join('\n'))
+  process.exit();
+}
+
+// configure and create application
+
+config(fields, function(conf, modified) {
+  var json = JSON.stringify(clean(fields, conf), null, '  ');
+
+  if (conf.quick) return writeAllFiles();
+
+  console.log('Proceeding with following configuration:');
+  console.log(highlight(json));
+  ask('Is this ok? [Yn] ', function(answer) {
+    if (/^[^Yy]/.test(answer)) {
+      console.error('Aborted.');
+      return process.exit(1);
+    }
+    writeAllFiles();
+  });
+
+  function writeAllFiles() {
+    var list = Object.keys(types);
+    writeFiles(list[0])
+  }
+
+  function writeFiles(type) {
+    writeTemplates(type, conf, function(err) {
+      if (!err) return finish();
+      console.error(err);
+      process.exit(1);
+    });
+  }
+});
+
+/**
+ * Write all files of a `type`
+ */
+
+function writeTemplates(type, conf, fn) {
+  var sourceDir = __dirname + '/../files/' + type;
+  var files = require(sourceDir + '/_files.json');
+  writeTemplate(sourceDir, conf, 0, files, fn);
+}
+
+/**
+ * Write a single file template
+ */
+
+function writeTemplate(sourceDir, conf, idx, ctx, fn) {
+  var target = process.cwd() + '/' + ctx[idx];
+  var source = sourceDir + '/' + ctx[idx];
+  var next = ctx[idx + 1]
+        ? writeTemplate.bind(null, sourceDir, conf, idx + 1, ctx, fn)
+        : fn;
+
+  fs.readFile(source, 'utf8', function(err, template) {
+    if (err) return console.error(err);
+    var string = minstache(template, conf);
+    if (conf.verbose && !conf.unsafe) {
+      console.log(target + ':')
+      console.log(highlight(string));
+    }
+    if (conf.unsafe) return write(string);
+    check(string);
+  });
+
+  function check(string) {
+    fs.exists(target, function(exists) {
+      if (!exists) return write(string);
+      ask(target + ' exists. Overwrite? [yN] ', function(answer) {
+        if (!answer.trim().length || /^[^Yy]/.test(answer))
+          return next('Aborted.');
+        write(string);
+      });
+    });
+  }
+
+  function write(string) {
+    var dir = path.dirname(target);
+    fs.mkdirp(dir, function(err) {
+      fs.writeFile(target, string, 'utf8', function(err) {
+        if (err) return next(err);
+        next();
+      });
+    });
+  }
+}
+
+/**
+ * Return indented and colored `string`
+ * @param {String} string
+ */
+
+function highlight(string) {
+  return '\n' + emphasize(indent(string, 4)) + '\n';
+}
+
+/**
+ * Return grayed `text`
+ * @param {String} text
+ */
+
+function emphasize(text) {
+  if (args.color === false) return text;
+  return '\033[90m' + text + '\033[0m';
+}
+
+/**
+ * Indent `string` by `amount`
+ * @param {String} string
+ * @param {Number} amount
+ */
+
+function indent(string, amount) {
+  amount = new Array(amount).join(' ');
+  return string.split('\n')
+    // strip trailing newlines
+    .filter(function(line, i, ctx){ return i < ctx.length -1 || line.trim().length })
+    .map(function(line){ return amount + line }).join('\n')
+}
+
+/**
+ * Return only the values in `conf` that are in `fields`
+ * @param {Array} fields
+ * @param {Object} conf
+ */
+
+function clean(fields, conf) {
+  var output = {};
+  for (var i = 0, l = fields.length; i < l; i++) {
+    output[fields[i]] = conf[fields[i]];
+  }
+  return output;
+}
+
+/**
+ * Return only unique values
+ */
+
+function unique(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+/**
+ * Display completion message
+ */
+
+function finish() {
+  var proc = spawn('npm', ['install'], { stdio: 'inherit', customFds: [0, 1, 2] });
+
+  proc.on('close', function(code){
+    if (!code) console.log('\nApp created. Run the command `make start` to start application.');
+    process.exit(code);
+  });
+}
+
+/**
+ * Parse `args`
+ * @returns {Object} {fields, types}
+ */
+
+function parse(args) {
+  var obj = {};
+  var fields = [];
+
+  for (var i = 0, l = args.length; i < l; i++) {
+    obj[args[i]] = true;
+    fields = fields.concat(require('../files/' + args[i] + '/_fields.json')).filter(unique);
+  }
+
+  return {
+    types: obj,
+    fields: fields
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "{{project}}",
+  "version": "0.1.0",
+  "description": "{{description}}",
+  "author": "{{fullname}} <{{email}}>",
+  "main": "app.js",
+  "scripts": {
+    "start": "./node_modules/.bin/startup start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/{{username}}/{{project}}"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.x.x"
+  },
+  "dependencies": {
+    "poe-ui": "^0.4.15",
+    "startup": "^1.0.3",
+    "envs": "^0.1.6"
+  },
+  "devDependencies": {
+    "lr": "^0.1.15"
+  }
+}

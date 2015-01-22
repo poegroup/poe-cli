@@ -1,0 +1,73 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies
+ */
+
+var config = require('../lib/config');
+var program = require('commander');
+var ask = require('../lib/utils').ask;
+var highlight = require('../lib/utils').highlight;
+var path = require('path');
+var fs = require('fs-extra');
+
+program._name = 'poe config';
+
+// cli
+program
+  .version(require('../package').version)
+  .usage('[options]')
+  .option('--username <username>', 'your github username')
+  .option('--email <email>', 'your github email')
+  .option('--fullname <fullname>', 'your fullname');
+
+// parse argv
+
+var argv = process.argv.slice(2);
+
+for (var i = 0, l = argv.length; i < l; i++) {
+  if (!/(-h|--help)/.test(argv[i])) continue;
+  program.help();
+  process.exit(0);
+}
+
+/**
+ * Load config
+ */
+
+config(null, function(conf, modified) {
+  var isModified = modified || argv.length;
+  var json = JSON.stringify(conf, null, '  ');
+  console.log(highlight(json));
+  if (!isModified) return;
+  save(json);
+});
+
+/**
+ * Save `json` as config data
+ * @param {String} json
+ */
+
+function save(json) {
+  ask('save config? [Yn] ', function (answer) {
+    if (answer.length && /^[^Yy]/.test(answer)) return;
+    var target = process.env.HOME + '/.config/poe';
+    write(target, json);
+  });
+}
+
+/**
+ * Write to path `target` with `str`
+ * @param {String} target 
+ * @param {String} str
+ */
+
+function write(target, str) {
+  var directory = path.dirname(target);
+  fs.mkdirp(directory, function(err) {
+    if (err) return console.log(err);
+    fs.writeFile(target, str, 'utf8', function(err) {
+      if (err) return console.error(err);
+    });
+  });
+}
