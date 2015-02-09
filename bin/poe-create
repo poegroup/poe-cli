@@ -3,7 +3,7 @@
 /**
  * Module dependencies
  */
-
+var shell = require('shelljs/global');
 var program = require('commander');
 var config = require('../lib/config');
 var ask = require('../lib/utils').ask;
@@ -46,7 +46,7 @@ var args = config.load();
 
 if (args.h || args.help) program.help() && process.exit();
 
-var parsed = parse(args._ || []);
+var parsed = parse(args._ || {});
 var types = parsed.types;
 var fields = parsed.fields;
 
@@ -57,7 +57,7 @@ if (!types.ui && !types.api) {
 }
 
 if (args.f || args.fields) {
-  console.log(fields.join('\n'))
+  console.log(Object.keys(fields).join('\n'))
   process.exit();
 }
 
@@ -187,9 +187,7 @@ function indent(string, amount) {
 
 function clean(fields, conf) {
   var output = {};
-  for (var i = 0, l = fields.length; i < l; i++) {
-    output[fields[i]] = conf[fields[i]];
-  }
+  for (var k in fields) output[k] = conf[k];
   return output;
 }
 
@@ -220,16 +218,26 @@ function finish() {
  */
 
 function parse(args) {
-  var obj = {};
-  var fields = [];
-
+  var types = {};
+  var fields = {};
   for (var i = 0, l = args.length; i < l; i++) {
-    obj[args[i]] = true;
-    fields = fields.concat(require('../files/' + args[i] + '/_fields.json')).filter(unique);
+    types[args[i]] = true;
+    fields = (function(fields) {
+      for (var k in fields) {
+        if (typeof fields[k] === 'object') fields[k] = fields[k].code === 0 ? fields[k].output : '';
+        fields[k] = fields[k].trim();
+      }
+      return  fields;
+    })(require('../files/' + args[i] + '/_fields.js'));
   }
 
   return {
-    types: obj,
+    types: types,
     fields: fields
   }
+}
+
+function appendDefaults(key, value) {
+  if (!value) return key;
+  return key + ' (' + value + ')';
 }

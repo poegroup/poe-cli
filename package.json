@@ -31,6 +31,7 @@
     "fs-extra": "^0.15.0",
     "minstache": "^1.2.0",
     "rc": "^0.5.5",
+    "shelljs": "^0.3.0",
     "win-fork": "^1.1.1"
   },
   "devDependencies": {
