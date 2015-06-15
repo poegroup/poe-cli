@@ -1,0 +1,37 @@
+import {Route, DefaultRoute} from 'react-router'
+
+import App from 'app'
+//- import Breakdown from 'blocks/breakdown'
+//- import ByAge from 'blocks/breakdown/by_age'
+//- import ByCountry from 'blocks/breakdown/by_region/by_country'
+//- import ByGender from 'blocks/breakdown/by_gender'
+//- import ByNearby from 'blocks/breakdown/by_region/by_nearby'
+//- import ByRegion from 'blocks/breakdown/by_region'
+//- import ByWorld from 'blocks/breakdown/by_region/by_world'
+//- import Configure from 'pages/maker/configure'
+//- import Dashboard from 'pages/dashboard'
+//- import Design from 'pages/maker/configure/design'
+//- import Maker from 'pages/maker'
+//- import NewPoll from 'pages/new'
+//- import Offers from 'pages/maker/configure/offers'
+//- import Overview from 'pages/overview'
+//- import Question from 'pages/maker/question'
+//- import Settings from 'pages/maker/configure/settings'
+
+Route(name='root' handler=App path=props.base)
+  //- Route(name='dashboard' path='dashboard' handler=Dashboard)
+  //- Route(name='new' path='new' handler=NewPoll)
+  //- Route(name='maker' path=':poll' handler=Maker)
+  //-   DefaultRoute(name='question' handler=Question)
+  //-   Route(name='configure' path='configure' handler=Configure)
+  //-     DefaultRoute(name='appearance' handler=Design)
+  //-     Route(name='offers' handler=Offers)
+  //-     Route(name='settings' handler=Settings)
+  //- Route(name='overview' path=':poll/overview' handler=Overview)
+  //-   Route(name='breakdown' handler=Breakdown)
+  //-     Route(name='by-gender' handler=ByGender)
+  //-     Route(name='by-age' handler=ByAge)
+  //-     Route(name='by-region' handler=ByRegion)
+  //-       Route(name='by-nearby' handler=ByNearby)
+  //-       DefaultRoute(name='by-country' handler=ByCountry)
+  //-       Route(name='by-world' handler=ByWorld)

@@ -1,5 +1,14 @@
 /**
- * Expose the application.
+ * Module dependencies
  */
 
-var app = module.exports = require('poe-ui')();
+var stack = require('poe-ui/server');
+
+/**
+ * Expose the app
+ */
+
+var app = module.exports = stack({
+  restricted: true
+});
+

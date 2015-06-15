@@ -43,10 +43,6 @@ var args = process.argv.slice(3);
 
 var cmd = program.args[0];
 
-// alias "install" as "add"
-
-if ('add' === cmd) cmd = 'install';
-
 // display help
 
 if (!cmd) program.help();
