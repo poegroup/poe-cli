@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var fs = require('fs');
+var exists = fs.existsSync;
+var spawn = require('win-fork');
+
+if (!exists('./package.json')) {
+  return console.error('You may only run `poe start` inside a poe application. See `poe --help` for more information.')
+}
+
+var proc = spawn('make', ['start'], { stdio: 'inherit', customFds: [0, 1, 2] });
+
+proc.on('close', function(code){
+  process.exit(code);
+});

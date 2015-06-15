@@ -5,9 +5,10 @@
   "main": "index.js",
   "bin": {
     "poe": "bin/poe",
-    "poe-help": "bin/poe-help",
+    "poe-config": "bin/poe-config",
     "poe-create": "bin/poe-create",
-    "poe-config": "bin/poe-config"
+    "poe-help": "bin/poe-help",
+    "poe-start": "bin/poe-start"
   },
   "scripts": {
     "test": "make test"
