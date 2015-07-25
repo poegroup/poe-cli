@@ -8,7 +8,7 @@ deps:
 	@mix deps.get
 	@mix deps.compile
 
-test:
+test: .env deps
 	@$(shell cat .env | grep '^#\|^MIX_ENV' --invert-match | xargs) mix test
 
 clean:
