@@ -1,3 +1,15 @@
-start: node_modules; @./node_modules/.bin/startup start
-node_modules: ; @npm install
-.PHONY: start
+start: .env deps
+	@$(shell cat .env | grep '^#' --invert-match | xargs) iex -S mix
+
+.env:
+	@cp .env.example $@
+
+deps:
+	@mix deps.get
+	@mix deps.compile
+
+test:
+	@$(shell cat .env | grep '^#\|^MIX_ENV' --invert-match | xargs) mix test
+
+clean:
+	@mix clean

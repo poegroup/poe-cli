@@ -136,9 +136,10 @@ function writeTemplate(sourceDir, conf, idx, ctx, fn) {
   }
 
   function write(string) {
-    var dir = path.dirname(target);
+    var file = minstache(target, conf);
+    var dir = path.dirname(file);
     fs.mkdirp(dir, function(err) {
-      fs.writeFile(target, string, 'utf8', function(err) {
+      fs.writeFile(file, string, 'utf8', function(err) {
         if (err) return next(err);
         next();
       });
@@ -204,12 +205,7 @@ function unique(value, index, self) {
  */
 
 function finish() {
-  var proc = spawn('npm', ['install'], { stdio: 'inherit', customFds: [0, 1, 2] });
-
-  proc.on('close', function(code){
-    if (!code) console.log('\nApp created. Run the command `' + emphasize('make start') + '` to start application.');
-    process.exit(code);
-  });
+  console.log('\nApp created. Run the command `' + emphasize('make') + '` to start application.');
 }
 
 /**

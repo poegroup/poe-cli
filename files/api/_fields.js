@@ -1,8 +1,10 @@
+var changeCase = require('change-case');
+
+var project = exec('pwd | xargs basename', {silent: true});
+
 module.exports = {
-  project: pwd(),
-  username: process.env.USER,
-  email: exec('npm config get email', {silent: true}),
-  fullname: exec('npm config get init-author-name', {silent: true}),
+  project: changeCase.snakeCase(project.output),
+  project_cap: changeCase.pascal(project.output),
   description: 'a hypermedia api',
-  PORT: '5000'
+  PORT: '4000'
 }
