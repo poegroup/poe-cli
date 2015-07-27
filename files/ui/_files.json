@@ -1,7 +1,6 @@
 [ 
-  ".env",
   ".env.example",
-  ".gitignore",
+  "gitignore",
   "LICENSE",
   "Makefile",
   "README.md",

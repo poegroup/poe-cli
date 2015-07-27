@@ -107,7 +107,7 @@ function writeTemplates(type, conf, fn) {
  */
 
 function writeTemplate(sourceDir, conf, idx, ctx, fn) {
-  var target = process.cwd() + '/' + ctx[idx];
+  var target = process.cwd() + '/' + addDot(ctx[idx]);
   var source = sourceDir + '/' + ctx[idx];
   var next = ctx[idx + 1]
         ? writeTemplate.bind(null, sourceDir, conf, idx + 1, ctx, fn)
@@ -120,6 +120,7 @@ function writeTemplate(sourceDir, conf, idx, ctx, fn) {
       console.log(target + ':')
       console.log(highlight(string));
     }
+
     if (conf.unsafe) return write(string);
     check(string);
   });
@@ -145,6 +146,15 @@ function writeTemplate(sourceDir, conf, idx, ctx, fn) {
       });
     });
   }
+}
+
+/**
+ * Prepend dot to `filename` if necessary
+ * @param {String} filename
+ */
+
+function addDot(filename) {
+  return filename.replace(/^(gitignore|env)$/, '.$1');
 }
 
 /**
