@@ -10,7 +10,6 @@ var Forms = require('form-store');
 var Store = require('hyper-store');
 var Client = require('hyper-client-wait1');
 var Translate = require('onus-translate');
-var cookie = require('component-cookie');
 
 var API_URL = browser.env.API_URL;
 
@@ -19,7 +18,7 @@ var API_URL = browser.env.API_URL;
  */
 
 var format = require('hyper-uri-format')(API_URL);
-var client = new Client(API_URL, cookie('_access_token'));
+var client = new Client(API_URL);
 var store = new Store(client);
 var forms = new Forms(client);
 

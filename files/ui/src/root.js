@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import Color from 'core/color/color.js';
+import Color from 'movement-ui-kit/blocks/core/color/color.js';
 
 exports = module.exports = require('branding/index.js');
 
