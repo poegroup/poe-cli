@@ -3,8 +3,9 @@
  */
 
 import Color from 'movement-ui-kit/blocks/core/color/color.js';
+import * as branding from 'ui-kit/utils/branding.js'
 
-exports = module.exports = require('branding/index.js');
+exports = module.exports = branding;
 
 // colors
 
