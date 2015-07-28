@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-import Color from 'movement-ui-kit/blocks/core/color/color.js';
+import Color from 'ui-kit/utils/color.js';
 import * as branding from 'ui-kit/utils/branding.js';
 
 exports = module.exports = branding;
