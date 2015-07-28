@@ -3,13 +3,13 @@
  */
 
 import Color from 'movement-ui-kit/blocks/core/color/color.js';
-import * as branding from 'ui-kit/utils/branding.js'
+import * as branding from 'ui-kit/utils/branding.js';
 
 exports = module.exports = branding;
 
 // colors
 
-var color = exports.color
+var color = exports.color;
 
 for (var key in color)
   color[key] = new Color(color[key]);
