@@ -13,7 +13,7 @@
   "test/{{project}}_test.exs",
   ".buildpacks",
   ".env.example",
-  ".gitignore",
+  "gitignore",
   ".profile",
   "Makefile",
   "mix.exs",
