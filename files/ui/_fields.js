@@ -5,5 +5,5 @@ module.exports = {
   fullname: exec('npm config get init-author-name', {silent: true}),
   description: 'a webapp',
   PORT: '5000',
-  API_URL: 'http://localhost:5001'
+  API_URL: 'ws://localhost:5001'
 }

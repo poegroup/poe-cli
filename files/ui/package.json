@@ -21,7 +21,7 @@
     "autoprefixer-loader": "^2.0.0",
     "babel-core": "^5.2.16",
     "babel-loader": "camshaft/babel-loader",
-    "babel-runtime": "^5.2.16",
+    "babel-runtime": "5.2.16",
     "css-loader": "^0.9.0",
     "envs": "^0.1.6",
     "ess-compiler": "^0.2.1",
