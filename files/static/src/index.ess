@@ -1,0 +1,3 @@
+body
+  color = __.color.black.light
+  font-size = __.h5

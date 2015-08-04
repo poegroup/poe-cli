@@ -33,7 +33,8 @@ program
   .on('--help', function() {
     console.log('  Types:');
     console.log();
-    console.log('    ui       a client application');
+    console.log('    static   a static app');
+    console.log('    ui       a dynamic client app');
     console.log('    api      a web api');
     console.log();
     // TODO
@@ -50,7 +51,7 @@ var parsed = parse(args._ || {});
 var types = parsed.types;
 var fields = parsed.fields;
 
-if (!types.ui && !types.api) {
+if (!types.ui && !types.api && !types.static) {
   console.error('You must provide a `type`.');
   program.outputHelp();
   process.exit(1);
