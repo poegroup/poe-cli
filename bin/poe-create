@@ -25,7 +25,7 @@ program
   .usage('[options] [type]')
   // TODO
   // add the short flags for these
-  .option('--verbose', 'verbose loggin to stdout')
+  .option('--verbose', 'verbose logging to stdout')
   .option('--fields', 'output the required fields')
   .option('--unsafe', 'do not ask before overwriting files')
   .option('--quick', 'do not ask for confirmation')
