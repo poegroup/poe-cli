@@ -37,8 +37,9 @@ configuration. The idea is to have an app up and running (even deployed) in
 a matter of seconds.
 
 Right now the available app templates are
+- `static`, a static site run by [poe-static](https://github.com/poegroup/poe-static)
 - `ui`, a client-facing webapp that runs [poe-ui](https://github.com/poegroup/poe-ui)
-- `api`, a very simple api starter running [simple-stack](https://www.npmjs.com/package/simple-stack-common), an express wrapper
+- `api`, a server running on [mazurka](https://www.mazurka.io/)
 
 ### Usage
 
