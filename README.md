@@ -1,4 +1,4 @@
-# poe
+# poe-cli
 
 An command line interface for managing poe web applications.
 
@@ -58,7 +58,8 @@ Via `poe create --help`
 
     Types:
 
-      ui       a client application
+      static   a static app
+      ui       a dynamic client app
       api      a web api
 
 ## Configuring
