@@ -7,4 +7,4 @@ module.exports = {
   project_cap: changeCase.pascal(project.output),
   description: 'a hypermedia api',
   PORT: '4000'
-}
+};

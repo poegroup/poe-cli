@@ -4,12 +4,39 @@ var fs = require('fs');
 var exists = fs.existsSync;
 var spawn = require('win-fork');
 
-if (!exists('./package.json')) {
-  return console.error('You may only run `poe start` inside a poe application. See `poe --help` for more information.')
+var isNodeApp = exists('./package.json');
+
+if (isNodeApp && isStatic()) start('static');
+else if (isNodeApp && isPoeUIApp()) start('ui');
+else if (exists('./mix.exs')) start('api');
+else console.error('You may only run `poe start` inside a poe application. See `poe --help` for more information.')
+
+/**
+ * Start application
+ * @param {String} appType
+ */
+
+function start(appType) {
+  console.log('starting poe ' + appType + ' application');
+  var args = process.argv.slice(2);
+  var proc = spawn('make', args, { stdio: 'inherit', customFds: [0, 1, 2] });
+  proc.on('close', function(code){
+    process.exit(code);
+  });
 }
 
-var proc = spawn('make', ['start'], { stdio: 'inherit', customFds: [0, 1, 2] });
+/**
+ * Determine if a node app is a poe static app
+ */
 
-proc.on('close', function(code){
-  process.exit(code);
-});
+function isStatic() {
+  return !!(require(process.cwd() + '/package.json').dependencies||{})['poe-static'];
+}
+
+/**
+ * Determine if a node app is a poe ui app
+ */
+
+function isPoeUIApp() {
+  return !!(require(process.cwd() + '/package.json').dependencies||{})['poe-ui'];
+}

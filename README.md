@@ -8,7 +8,7 @@ An command line interface for managing poe web applications.
 
 ## Commands
 
-As of right now there are only two commands: `create` and `config`.
+Three commands are available: `create`, `config`, and `start`
 
 ## Examples
 
@@ -82,6 +82,14 @@ Via `poe config --help`
       --username <username>  your github username
       --email <email>        your github email
       --fullname <fullname>  your fullname
+
+## Starting
+
+The `start` command (also the default command if a valid command is not provided) pipes
+the arguments to `make`. In other words, running `poe start` or simply `poe` is the same
+as running `make` in your app.
+
+Since the arguments are fed directly to `make`, there are no options for this command.
 
 ## Todo
 
