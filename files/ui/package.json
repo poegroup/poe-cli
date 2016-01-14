@@ -40,7 +40,6 @@
     "jade-html-loader": "^0.0.2",
     "jade2ast-loader": "^0.1.0",
     "json-loader": "^0.5.1",
-    "movement-ui-kit": "git+https://github.com/movementventures/ui-kit.git",
     "lang-js-translate": "^1.0.2",
     "lru-cache": "^2.5.0",
     "onus": "^0.2.0",
