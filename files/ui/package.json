@@ -12,8 +12,8 @@
     "url": "https://github.com/{{username}}/{{project}}"
   },
   "engines": {
-    "node": "0.10.x",
-    "npm": "2.x.x"
+    "node": "5.x.x",
+    "npm": "3.x.x"
   },
   "dependencies": {
     "ast2template": "^0.3.0",
@@ -31,7 +31,7 @@
     "file-loader": "^0.8.1",
     "form-store": "^0.1.0",
     "hyper-client-superagent": "^0.1.0",
-    "hyper-client-wait1": "^0.1.1",
+    "hyper-client-wait1": "^0.2.0",
     "hyper-path": "^1.0.0",
     "hyper-store": "^1.0.0",
     "hyper-uri-format": "^0.1.3",
