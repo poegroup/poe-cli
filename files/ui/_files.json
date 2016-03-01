@@ -1,4 +1,4 @@
-[ 
+[
   ".env.example",
   "gitignore",
   "LICENSE",
@@ -10,7 +10,6 @@
   "src/index.jade",
   "src/index.js",
   "src/root.js",
-  "src/routes.jade",
-  "src/modules/app/index.jade",
-  "src/modules/app/index.ess"
+  "web/index.jade",
+  "web/__local__/index.ess"
 ]

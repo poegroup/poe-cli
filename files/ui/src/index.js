@@ -1,15 +1,19 @@
 __webpack_public_path__ = __build_path__;
-
 /**
  * Module dependencies
  */
 
 import Poe from 'poe-ui';
-var routes = require('./routes.jade?force-load').render;
-var Forms = require('form-store');
-var Store = require('hyper-store');
-var Client = require('hyper-client-wait1');
-var Translate = require('onus-translate');
+import Forms from 'form-store';
+import Store from 'hyper-store';
+import Client from 'hyper-client-wait1';
+import Format from 'hyper-uri-format';
+import Translate from 'onus-translate';
+import routes from 'onus-router/react?enhancers=basename!../web';
+
+/**
+ * Setup environment variables
+ */
 
 var API_URL = browser.env.API_URL;
 
@@ -22,12 +26,14 @@ var client = new Client(API_URL);
 var store = new Store(client);
 var forms = new Forms(client);
 
-Poe(document.body, {
-  routes: routes,
+module.exports = Poe(document.getElementById('app'), {
+  router: {
+    activeLinkClassName: 'is-active',
+    basename: __app_path__,
+    routes: routes
+  },
+  format: format,
+  forms: new Forms(client),
   store: store,
-  translate: new Translate(`.translations.{{project}}`),
-  encodeParams: format.encodeParams,
-  decodeParams: format.decodeParams,
-  forms: forms,
-  base: __app_path__ || '/'
+  translate: new Translate('.translations.{{project}}')
 });
