@@ -22,8 +22,8 @@ defmodule {{project_cap}}.Protocol.HTTP.Router.Helper do
             |> put_private(:mazurka_params, params)
           nil ->
             conn
-            |> put_private(:mazurka_route, {{project_cap}}.Resource.Error.NotFound.GET)
-            |> put_private(:mazurka_resource, {{project_cap}}.Resource.Error.NotFound.GET)
+            |> put_private(:mazurka_route, {{project_cap}}.Resource.Error.GET)
+            |> put_private(:mazurka_resource, {{project_cap}}.Resource.Error.GET)
             |> put_private(:mazurka_resource_params, %{})
             |> put_private(:mazurka_params, %{})
         end

@@ -5,7 +5,7 @@ defmodule {{project_cap}}.Resource.Error.GET do
     action do
       %{
         "error" => %{
-          "message" => "Not found"
+          "message" => "Resource not found"
         }
       }
     end
