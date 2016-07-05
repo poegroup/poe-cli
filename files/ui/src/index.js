@@ -11,10 +11,6 @@ import Format from 'hyper-uri-format';
 import Translate from 'onus-translate';
 import routes from 'onus-router/react?enhancers=basename!../web';
 
-/**
- * Setup environment variables
- */
-
 var API_URL = browser.env.API_URL;
 
 /**

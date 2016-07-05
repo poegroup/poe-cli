@@ -1,9 +1,3 @@
-%ui-kit/skins/base/index.ess
-%ui-kit/skins/base/normalize.ess
-
-html
-  %ui-kit/skins/base/typography.ess
-
 .App-component
-  background white
-  color = __.color.primary
+  background-color white
+  color = __.color.primary.soft

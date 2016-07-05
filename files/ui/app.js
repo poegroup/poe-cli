@@ -12,6 +12,6 @@ var app = module.exports = stack({});
 
 app.builder.addES6({
   test: /\.(js)$/,
-  include: /ui-kit/
+  include: /(ui-kit|immutable-color)/
 });
 
