@@ -1,5 +1,6 @@
 [
   "config/config.exs",
+  "lib/{{project}}/protocol/http/router/helper.ex",
   "lib/{{project}}/protocol/http/router.ex",
   "lib/{{project}}/protocol/http.ex",
   "lib/{{project}}/service/greeting.ex",
