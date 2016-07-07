@@ -9,7 +9,7 @@ defmodule {{project_cap}}.Protocol.HTTP.Router.Helper do
       import unquote(__MODULE__)
       @before_compile unquote(__MODULE__)
 
-      def match(%{private: %{mazurka_route: _}} = conn, _opts) do
+      def match(%{private: %{mazurka_route: _} } = conn, _opts) do
         conn
       end
       def match(%Plug.Conn{} = conn, _opts) do
@@ -29,7 +29,7 @@ defmodule {{project_cap}}.Protocol.HTTP.Router.Helper do
         end
       end
 
-      defp dispatch(%Plug.Conn{private: %{mazurka_route: route}} = conn, _opts) do
+      defp dispatch(%Plug.Conn{private: %{mazurka_route: route} } = conn, _opts) do
         Mazurka.Protocol.HTTP.Router.Handler.__handle__(conn, route)
       end
     end
@@ -71,7 +71,7 @@ defmodule {{project_cap}}.Protocol.HTTP.Router.Helper do
           nil ->
             {:error, :not_found}
           {method, path_info} ->
-            {:ok, method, path_info, %{}}
+            {:ok, method, path_info, %{} }
         end
       end
     end
