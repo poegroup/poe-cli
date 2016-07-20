@@ -1,6 +1,5 @@
 defmodule {{project_cap}}.Supervisor do
   use Supervisor
-  import Supervisor.Spec
 
   def start_link() do
     {:ok, _sup} = Supervisor.start_link(__MODULE__, [], name: :supervisor)

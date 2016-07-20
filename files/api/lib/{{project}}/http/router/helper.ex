@@ -26,13 +26,11 @@ defmodule {{project_cap}}.HTTP.Router.Helper do
         end
       end
 
-      defp dispatch(%Plug.Conn{private: %{mazurka_route: route, mazurka_params: params}\} = conn, _opts) do
-        accept = [
-          {"application", "json", %{}\},
-          {"text", "*", %{}\},
-        ]
-        conn = %{params: input} = fetch_query_params(conn)
-        {body, content_type, conn} = route.action(accept, params, input, conn, __MODULE__)
+      defp dispatch(conn, _opts) do
+        {body, content_type, conn} = conn
+        |> handle_accept_header()
+        |> handle_action()
+
         conn
         |> handle_body(body, content_type)
         |> handle_transition()
@@ -65,6 +63,29 @@ defmodule {{project_cap}}.HTTP.Router.Helper do
         resolve_module(resource_name)
       end
 
+      defp handle_accept_header(conn) do
+        accepts = conn
+        |> Plug.Conn.get_req_header("accept")
+        |> Stream.map(&Plug.Conn.Utils.list/1)
+        |> Stream.concat()
+        |> Stream.map(fn(type) ->
+          case Plug.Conn.Utils.media_type(type) do
+            {:ok, type, subtype, params} ->
+              {type, subtype, params}
+            _ ->
+              nil
+          end
+        end)
+        |> Stream.filter(&!is_nil(&1))
+        |> Enum.to_list()
+        Plug.Conn.put_private(conn, :mazurka_accepts, accepts)
+      end
+
+      defp handle_action(%{private: %{mazurka_route: route, mazurka_params: params, mazurka_accepts: accepts}\} = conn) do
+        conn = %{params: input} = fetch_query_params(conn)
+        route.action(accepts, params, input, conn, __MODULE__)
+      end
+
       defp handle_body(conn, body, content_type) do
         body = case content_type do
           {"application", subtype, _} when subtype in ["json", "hyper+json"] ->
@@ -75,8 +96,8 @@ defmodule {{project_cap}}.HTTP.Router.Helper do
         %{conn | resp_body: body, state: :set}
       end
 
-      defp handle_transition(conn = %{private: %{mazurka_transition: transition}\}) do
-        %{conn | status: 303}
+      defp handle_transition(conn = %{private: %{mazurka_transition: transition}, status: status}) do
+        %{conn | status: status || 303}
         |> put_resp_header("location", to_string(transition))
       end
       defp handle_transition(conn) do
@@ -84,8 +105,7 @@ defmodule {{project_cap}}.HTTP.Router.Helper do
       end
 
       defp handle_invalidation(conn = %{private: %{mazurka_invalidations: invalidations}\}) do
-        # TODO
-        conn
+        Enum.reduce(invalidations, conn, &(put_resp_header(&2, "x-invalidates", &1)))
       end
       defp handle_invalidation(conn) do
         conn
