@@ -1,7 +1,7 @@
 defmodule {{project_cap}}.Resource.Error.GET do
   use Mazurka.Resource
 
-  mediatype Mazurka.Mediatype.Hyperjson do
+  mediatype Hyper do
     action do
       %{
         "error" => %{

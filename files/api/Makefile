@@ -1,15 +1,12 @@
-start: .env deps
-	@$(shell cat .env | grep '^#' --invert-match | xargs) iex -S mix
-
-.env:
-	@cp .env.example $@
+start: deps
+	@iex -S mix
 
 deps:
 	@mix deps.get
 	@mix deps.compile
 
-test: .env deps
-	@$(shell cat .env | grep '^#\|^MIX_ENV' --invert-match | xargs) mix test
+test: deps
+	@mix test
 
 clean:
 	@mix clean

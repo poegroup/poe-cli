@@ -8,6 +8,6 @@ defmodule {{project_cap}}.Supervisor do
 
   def init(_) do
     processes = []
-    {:ok, { {:one_for_one, 10, 10}, processes} }
+    {:ok, {\{:one_for_one, 10, 10}, processes}\}
   end
 end

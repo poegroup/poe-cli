@@ -1,11 +1,19 @@
 defmodule {{project_cap}}.Resource.GET do
   use Mazurka.Resource
 
-  mediatype Mazurka.Mediatype.Hyperjson do
+  input name
+
+  mediatype Hyper do
     action do
       %{
-        "greeting" => Greeting.world()
+        "greeting" => greeting(name || "guest")
       }
     end
+  end
+
+  def greeting(name) do
+    %{
+      "hello" => name
+    }
   end
 end

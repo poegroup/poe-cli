@@ -8,4 +8,11 @@ defmodule Test.{{project_cap}}.Resource.GET do
     |> assert_status(200)
     |> assert_json(%{"greeting" => _})
   end
+
+  test "should respond with an affordance" do
+    affordance()
+  after conn ->
+    conn
+    |> assert_json(%{"href" => _})
+  end
 end

@@ -2,9 +2,8 @@ use Mix.Config
 
 config :logger, :console,
   level: :info,
-  format: "$message\n"
+  format: "$message
+"
 
-# disable lager output
-config :lager,
-  error_logger_redirect: false,
-  handlers: []
+config :{{project}},
+  port: (System.get_env("PORT") || "4000") |> String.to_integer
