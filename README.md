@@ -39,7 +39,7 @@ a matter of seconds.
 Right now the available app templates are
 - `static`, a static site run by [poe-static](https://github.com/poegroup/poe-static)
 - `ui`, a client-facing webapp that runs [poe-ui](https://github.com/poegroup/poe-ui)
-- `api`, a server running on [mazurka](https://www.mazurka.io/)
+- `api`, a server running on [mazurka](https://github.com/exstruct/mazurka)
 
 ### Usage
 
