@@ -42,7 +42,7 @@ defmodule Test.{{project_cap}}.Resource do
       conn
       |> Plug.Conn.put_private(:mazurka_affordance_test_subject, @subject)
       |> Plug.Conn.put_private(:mazurka_route, Test.{{project_cap}}.Resource.AffordanceProxy)
-      |> Plug.Conn.put_private(:mazurka_params, conn.private[:{{project}}_test_params] || %{})
+      |> Map.put(:params, conn.private[:{{project}}_test_params] || %{})
     end
   end
 

@@ -1,5 +1,8 @@
 defmodule {{project_cap}}.HTTP.Router do
-  use __MODULE__.Helper
+  use Concerto, [root: "#{System.cwd!}/web",
+                 ext: ".ex",
+                 module_prefix: {{project_cap}}.Resource]
+  use Concerto.Plug.Mazurka
 
   plug :match
   if Mix.env == :dev do

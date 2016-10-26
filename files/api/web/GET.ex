@@ -1,5 +1,5 @@
 defmodule {{project_cap}}.Resource.GET do
-  use Mazurka.Resource
+  use {{project_cap}}.Resource
 
   input name
 

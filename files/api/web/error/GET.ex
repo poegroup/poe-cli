@@ -1,5 +1,5 @@
 defmodule {{project_cap}}.Resource.Error.GET do
-  use Mazurka.Resource
+  use {{project_cap}}.Resource
 
   mediatype Hyper do
     action do
