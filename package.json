@@ -1,6 +1,6 @@
 {
   "name": "poe",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "CLI for poe",
   "main": "index.js",
   "bin": {
