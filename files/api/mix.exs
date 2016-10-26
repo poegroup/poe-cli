@@ -27,12 +27,14 @@ defmodule {{project_cap}}.Mixfile do
 
   defp deps do
     [{:concerto, "~> 0.1.2"},
+     {:concerto_plug, "~> 0.1.0"},
      {:cowboy, "1.0.0" },
      {:fugue, "~> 0.1.2"},
      {:mazurka, "~> 1.0.0"},
+     {:mazurka_plug, "~> 0.1.0"},
      {:plug, "~> 0.13.0", override: true},
      {:plug_wait1, "~> 0.1.2"},
      {:poison, "2.2.0", override: true},
-     {:rl, github: "camshaft/rl", only: :dev},]
+     {:rl, github: "camshaft/rl", only: [:dev, :test]},]
   end
 end

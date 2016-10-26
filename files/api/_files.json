@@ -1,9 +1,9 @@
 [
   "./gitignore",
   "./config/config.exs",
-  "./lib/{{project}}/http/router/helper.ex",
-  "./lib/{{project}}/http/router.ex",
   "./lib/{{project}}/http.ex",
+  "./lib/{{project}}/resource.ex",
+  "./lib/{{project}}/router.ex",
   "./lib/{{project}}/supervisor.ex",
   "./lib/{{project}}.ex",
   "./Makefile",

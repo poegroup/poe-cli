@@ -1,6 +1,6 @@
 defmodule Test.{{project_cap}}.Resource do
   defmodule AffordanceProxy do
-    use Mazurka.Resource
+    use {{project_cap}}.Resource
 
     mediatype Hyper do
       provides "application/json"
@@ -15,7 +15,7 @@ defmodule Test.{{project_cap}}.Resource do
   defmacro __using__(_) do
     resource = __CALLER__.module |> Module.split() |> tl() |> Module.concat()
     quote do
-      @router {{project_cap}}.HTTP.Router
+      @router {{project_cap}}.Router
       use Fugue, plug: @router
       import unquote(__MODULE__)
       require unquote(resource)

@@ -1,4 +1,4 @@
-defmodule {{project_cap}}.HTTP.Router do
+defmodule {{project_cap}}.Router do
   use Concerto, [root: "#{System.cwd!}/web",
                  ext: ".ex",
                  module_prefix: {{project_cap}}.Resource]
