@@ -33,6 +33,7 @@ defmodule {{project_cap}}.Mixfile do
      {:mazurka, "~> 1.0.0"},
      {:mazurka_plug, "~> 0.1.0"},
      {:plug, "~> 1.2.0"},
+     {:plug_x_forwarded_proto, "~> 0.1.0"},
      {:plug_wait1, "~> 0.2.1"},
      {:poison, "2.2.0"},
      {:rl, github: "camshaft/rl", only: [:dev, :test]},]
