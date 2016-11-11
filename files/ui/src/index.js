@@ -4,6 +4,7 @@ __webpack_public_path__ = __build_path__;
  */
 
 import Poe from 'poe-ui';
+import {render} from 'react-dom';
 import Forms from 'form-store';
 import Store from 'hyper-store';
 import Client from 'hyper-client-wait1';
@@ -22,7 +23,7 @@ var client = new Client(API_URL);
 var store = new Store(client);
 var forms = new Forms(client);
 
-module.exports = Poe(document.getElementById('app'), {
+var app = module.exports = Poe({
   router: {
     activeLinkClassName: 'is-active',
     basename: __app_path__,
@@ -33,3 +34,4 @@ module.exports = Poe(document.getElementById('app'), {
   store: store,
   translate: new Translate('.translations.{{project}}')
 });
+render(app, document.getElementById('app'));
