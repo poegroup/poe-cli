@@ -4,6 +4,7 @@ defmodule Test.{{project_cap}}.Resource do
     quote do
       use Mazurka.Plug.Test, router: {{project_cap}}.Router,
                              resource: unquote(resource)
+      import unquote(__MODULE__)
     end
   end
 
