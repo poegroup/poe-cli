@@ -48,7 +48,7 @@
     "onus-router": "^0.1.0",
     "onus-style": "^0.2.0",
     "onus-translate": "^0.2.0",
-    "poe-ui": "^1.2.0",
+    "poe-ui": "^2.0.1",
     "poe-ui-builder": "^1.1.1",
     "raf": "^2.0.4",
     "react": "^15",
